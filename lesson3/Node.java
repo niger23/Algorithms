@@ -1,41 +1,58 @@
 package lesson3;
 
-public class List {
+public class Node {
+	int value;
+	Node prev;
+	Node next;
+
+	public Node(int data) {
+		this.value = data;
+		this.prev = null;
+		this.next = null;
+	}
+}
+
+class Numbers {
     Node head;
     Node tail;
 
+    public Numbers() {
+		this.head = null;
+		this.tail = null;
+	}
+
     public void add(int value) {
-        Node node = new Node(); 
+        Node node = new Node(value); 
         node.value = value;
-        if (head = null){
+        if (head == null){
             head = node;
             tail = node;
         } else {
             tail.next = node;
-            node.previous = tail;
+            node.prev = tail;
             tail = node;
         }
     }
 
     public void add(int value, Node node) {
         Node next = node.next;
-        Node newNode = new Node();
+        Node newNode = new Node(value);
         newNode.value = value;
         node.next = newNode;
-        newNode.previous = node;
+        newNode.prev = node;
         if (next == null){
             tail = newNode;
         }else{
-            next.previous = newNode;
+            next.prev = newNode;
             newNode.next = next;
         }
     }
 
     public void delete(Node node) {
-        Node previous = node.previous;
+        Node previous = node.prev;
         Node next = node.next;
         if (previous == null){
-            next.previous = null;
+            next.prev = null;
             head = next;
         }else{
             if(next == null){
@@ -43,7 +60,7 @@ public class List {
                 tail = previous;
             } else {
                 previous.next = next;
-                next.previous = previous;
+                next.prev = previous;
             }
         }
     }
@@ -63,9 +80,9 @@ public class List {
         Node currentNode = head;
         while (currentNode != null) {
             Node next = currentNode.next;
-            Node previuos = currentNode.previous;
+            Node previuos = currentNode.prev;
             currentNode.next = previuos;
-            currentNode.previous = next;
+            currentNode.prev = next;
             if (previuos == null) {
                 tail = currentNode;
             }
@@ -92,10 +109,13 @@ public class List {
         previousNode.next = null;
     }
 
-    public class Node{
-        int value;
+    public void printList() {
+		Node current = head;
+		while (current != null) {
+			System.out.print(current.value + " ");
+			current = current.next;
+		}
+		System.out.println();
+	}
 
-        Node next;
-        Node previous;
-    }
 }
